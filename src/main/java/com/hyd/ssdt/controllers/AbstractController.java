@@ -7,7 +7,7 @@ import javax.servlet.http.HttpSession;
 public abstract class AbstractController {
 
   public enum SessionAttr {
-    User, Roles
+    User, Roles, Departments
   }
 
   @Autowired

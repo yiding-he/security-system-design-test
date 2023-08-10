@@ -2,6 +2,7 @@ package com.hyd.ssdt.controllers;
 
 import com.hyd.hybatis.Conditions;
 import com.hyd.hybatis.row.Row;
+import com.hyd.ssdt.mappers.UserDepartmentMapper;
 import com.hyd.ssdt.mappers.UserMapper;
 import com.hyd.ssdt.mappers.UserRoleMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,9 @@ public class IndexController extends AbstractController {
   @Autowired
   private UserRoleMapper userRoleMapper;
 
+  @Autowired
+  private UserDepartmentMapper userDepartmentMapper;
+
   @RequestMapping("/")
   public ModelAndView index() {
     return new ModelAndView("/index")
@@ -37,9 +41,19 @@ public class IndexController extends AbstractController {
     if (user == null) {
       throw new IllegalArgumentException("User not found");
     }
+
+    var sysUserId = user.getString("sys_user_id");
     setSessionAttribute(SessionAttr.User, user);
-    setSessionAttribute(SessionAttr.Roles, queryRoles(user.getString("sys_user_id")));
+    setSessionAttribute(SessionAttr.Roles, queryRoles(sysUserId));
+    setSessionAttribute(SessionAttr.Departments, queryDepartments(sysUserId));
+
     return new ModelAndView("redirect:/home");
+  }
+
+  private List<Row> queryDepartments(String sysUserId) {
+    return userDepartmentMapper.selectDepartmentsByUser(
+      Conditions.eq("sys_user_id", sysUserId).projection("sys_dept_id", "name")
+    );
   }
 
   private List<Row> queryRoles(String sysUserId) {
