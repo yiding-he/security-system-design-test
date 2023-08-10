@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Sign In</title>
+</head>
+<body>
+<p>选择用户登入：</p>
+<ul>
+    <li th:each="user: ${users}">
+        <a th:href="'sign-in?user=' + ${user.name}" th:text="${user.name}"></a>
+    </li>
+</ul>
+</body>
+</html>
