@@ -21,4 +21,8 @@ public abstract class AbstractController {
   protected void setSessionAttribute(SessionAttr attribute, Object value) {
     httpSession.setAttribute(attribute.name(), value);
   }
+
+  protected void removeSessionAttribute(SessionAttr attr) {
+    httpSession.removeAttribute(attr.name());
+  }
 }

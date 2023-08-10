@@ -13,6 +13,7 @@
     <title>Home</title>
 </head>
 <body>
+<p><a th:href="@{/sign-out}">登出</a></p>
 <p >Hi, <span class="highlight" th:text="${#httpSession.getAttribute('User').name}"></span></p>
 <p>Your Roles:</p>
 <ul>
@@ -21,6 +22,9 @@
 <p>Your Departments:</p>
 <ul>
     <li th:each="dept: ${#httpSession.getAttribute('Departments')}" th:text="${dept.name}" class="highlight"></li>
+</ul>
+<p>System Functions:</p>
+<ul>
 </ul>
 </body>
 </html>

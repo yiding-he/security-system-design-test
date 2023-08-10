@@ -31,6 +31,14 @@ public class IndexController extends AbstractController {
       .addObject("users", userMapper.selectAll());
   }
 
+  @RequestMapping("/sign-out")
+  public ModelAndView signOut() {
+    removeSessionAttribute(SessionAttr.User);
+    removeSessionAttribute(SessionAttr.Roles);
+    removeSessionAttribute(SessionAttr.Departments);
+    return new ModelAndView("redirect:/");
+  }
+
   @RequestMapping("/sign-in")
   public ModelAndView signIn(
     @RequestParam("user") String userName
